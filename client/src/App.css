@@ -1,20 +1,46 @@
-nav {
-  padding: 1rem;
-  > ul {
+header {
+  nav {
     display: flex;
     gap: 3rem;
-    list-style: none;
     text-transform: capitalize;
     align-items: center;
+    padding-inline: 0.5rem;
 
-    li:first-child {
+    a:first-child {
       margin-right: auto;
       text-transform: uppercase;
       font-weight: bold;
       font-size: 1.5rem;
     }
+    a:not(:first-child) {
+      &:hover,
+      &.active {
+        text-decoration: underline;
+        text-underline-offset: 5px; /* distance between text and the underline */
+      }
+    }
   }
 }
+
+main {
+  max-width: 1300px;
+  margin-inline: auto;
+}
+
+footer,
+header > nav {
+  height: 100px;
+}
+
+footer {
+  display: grid;
+  place-items: center;
+  background-color: var(--background-dark);
+  color: var(--text-light);
+  margin-top: auto;
+  font-size: 0.8rem;
+}
+
 .link-button {
   display: inline-block;
   text-align: center;

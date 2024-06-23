@@ -11,6 +11,8 @@ body {
 :root {
   --text-primary: #444;
   --text-highlight: black;
+  --background-dark: #222;
+  --text-light: #eee;
 
   font-family: "Noto Sans", system-ui, sans-serif;
   line-height: 1.5;
@@ -22,6 +24,12 @@ body {
 }
 body {
   background-color: #fff7ed;
+  #root {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100svh;
+  }
 }
 
 a {
@@ -29,8 +37,5 @@ a {
   text-decoration: none;
   &:hover {
     color: var(--text-highlight);
-  }
-  .selected {
-    text-decoration: underline;
   }
 }
