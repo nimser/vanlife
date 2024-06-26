@@ -2,14 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
-/* ************************************************************************* */
-// Import And Use Routers Here
-/* ************************************************************************* */
+const vansController = require("../../controllers/vanActions");
 
-const itemsRouter = require("./items/router");
-
-router.use("/items", itemsRouter);
-
-/* ************************************************************************* */
+router.get("/vans", vansController.browse);
 
 module.exports = router;
