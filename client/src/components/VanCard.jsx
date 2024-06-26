@@ -1,7 +1,7 @@
 export default function VanCard({ van }) {
   return (
     <div key={van.id} className="van-tile">
-      <img src={van.imageUrl} alt={`Cool-looking van ${van.id}`} />
+      <img src={van.imageUrl} alt={van.name} />
       <div className="van-info">
         <h3>{van.name}</h3>
         <p>

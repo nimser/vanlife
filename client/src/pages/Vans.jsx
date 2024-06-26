@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import VanCard from "../components/VanCard";
 import "./vans.css";
 
@@ -16,7 +17,9 @@ export default function Vans() {
       <h1>Explore our van options</h1>
       <div className="van-list">
         {vans.map((van) => (
-          <VanCard key={van.id} van={van} />
+          <Link key={van.id} to={`/vans/${van.id}`}>
+            <VanCard van={van} />
+          </Link>
         ))}
       </div>
     </div>
