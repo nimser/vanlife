@@ -12,8 +12,8 @@ class VanRepository extends AbstractRepository {
   async create(van) {
     // Execute the SQL INSERT query to add a new van to the "van" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (title, user_id) values (?, ?)`,
-      [van.title, van.user_id]
+      `insert into ${this.table} (title, host_id) values (?, ?)`,
+      [van.title, van.host_id]
     );
 
     // Return the ID of the newly inserted van

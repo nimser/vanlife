@@ -1,23 +1,25 @@
-header {
-  nav {
-    display: flex;
-    gap: 3rem;
-    text-transform: capitalize;
-    align-items: center;
-    padding-inline: 0.5rem;
+nav {
+  display: flex;
+  gap: 3rem;
+  text-transform: capitalize;
+  align-items: center;
+  padding-inline: 0.5rem;
 
-    a:first-child {
-      margin-right: auto;
-      text-transform: uppercase;
-      font-weight: bold;
-      font-size: 1.5rem;
+  a.logo {
+    margin-right: auto;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  a:not(#logo) {
+    &:hover,
+    &.active {
+      text-decoration: underline;
+      text-underline-offset: 5px; /* distance between text and the underline */
     }
-    a:not(:first-child) {
-      &:hover,
-      &.active {
-        text-decoration: underline;
-        text-underline-offset: 5px; /* distance between text and the underline */
-      }
+    &.active {
+      color: #161616;
+      font-weight: bold;
     }
   }
 }

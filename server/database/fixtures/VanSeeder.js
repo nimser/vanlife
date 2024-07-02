@@ -2,12 +2,12 @@ const AbstractSeeder = require("./AbstractSeeder");
 
 // Import seeders that must be executed before this one
 // Follow your foreign keys to find the right order ;)
-const UserSeeder = require("./UserSeeder");
+const HostSeeder = require("./HostSeeder");
 
 class VanSeeder extends AbstractSeeder {
   constructor() {
     // Call the constructor of the parent class (AbstractSeeder) with appropriate options
-    super({ table: "van", truncate: true, dependencies: [UserSeeder] });
+    super({ table: "van", truncate: true, dependencies: [HostSeeder] });
   }
 
   // The run method - Populate the 'van' table with fake data
@@ -24,6 +24,7 @@ class VanSeeder extends AbstractSeeder {
       imageUrl:
         "https://assets.scrimba.com/advanced-react/react-router/modest-explorer.png",
       type: "simple",
+      host_id: this.getRef(`host_1`).insertId,
     });
     this.insert({
       id: "2",
@@ -34,6 +35,7 @@ class VanSeeder extends AbstractSeeder {
       imageUrl:
         "https://assets.scrimba.com/advanced-react/react-router/beach-bum.png",
       type: "rugged",
+      host_id: this.getRef(`host_1`).insertId,
     });
     this.insert({
       id: "3",
@@ -44,6 +46,7 @@ class VanSeeder extends AbstractSeeder {
       imageUrl:
         "https://assets.scrimba.com/advanced-react/react-router/reliable-red.png",
       type: "luxury",
+      host_id: this.getRef(`host_1`).insertId,
     });
     this.insert({
       id: "4",
@@ -54,6 +57,7 @@ class VanSeeder extends AbstractSeeder {
       imageUrl:
         "https://assets.scrimba.com/advanced-react/react-router/dreamfinder.png",
       type: "simple",
+      host_id: this.getRef(`host_1`).insertId,
     });
     this.insert({
       id: "5",
@@ -64,6 +68,7 @@ class VanSeeder extends AbstractSeeder {
       imageUrl:
         "https://assets.scrimba.com/advanced-react/react-router/the-cruiser.png",
       type: "luxury",
+      host_id: this.getRef(`host_2`).insertId,
     });
     this.insert({
       id: "6",
@@ -74,6 +79,7 @@ class VanSeeder extends AbstractSeeder {
       imageUrl:
         "https://assets.scrimba.com/advanced-react/react-router/green-wonder.png",
       type: "rugged",
+      host_id: this.getRef(`host_2`).insertId,
     });
   }
 }

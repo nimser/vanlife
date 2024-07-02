@@ -1,34 +1,37 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
+import "./host.css";
 
-export default function Header() {
+export default function HostLayout() {
   return (
-    <header>
-      <nav>
-        <NavLink
-          to="/"
-          className={({ isActive }) => `logo ${isActive ? "active" : null}`}
-        >
-          #vanlife
-        </NavLink>
+    <>
+      <nav className="host-nav">
         <NavLink
           to="/host"
+          end
           className={({ isActive }) => (isActive ? "active" : null)}
         >
-          Host
+          Dashboard
         </NavLink>
         <NavLink
-          to="/vans"
+          to="/host/income"
+          className={({ isActive }) => (isActive ? "active" : null)}
+        >
+          Income
+        </NavLink>
+        <NavLink
+          to="/host/vans"
           className={({ isActive }) => (isActive ? "active" : null)}
         >
           Vans
         </NavLink>
         <NavLink
-          to="/about"
+          to="/host/reviews"
           className={({ isActive }) => (isActive ? "active" : null)}
         >
-          About
+          Reviews
         </NavLink>
       </nav>
-    </header>
+      <Outlet />
+    </>
   );
 }
