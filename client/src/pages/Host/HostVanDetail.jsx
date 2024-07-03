@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, NavLink, Outlet } from "react-router-dom";
+import { getHostVans } from "../../api";
 
 export default function HostVanDetail() {
   const [currentVan, setCurrentVan] = useState(0);
@@ -8,15 +9,8 @@ export default function HostVanDetail() {
 
   useEffect(() => {
     (async () => {
-      try {
-        const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/hosts/${hostId}/vans/${vanId}`
-        );
-        const data = await res.json();
-        setCurrentVan(data);
-      } catch (err) {
-        console.error(err);
-      }
+      const data = await getHostVans(hostId, vanId);
+      setCurrentVan(data);
     })();
   }, [vanId]);
 

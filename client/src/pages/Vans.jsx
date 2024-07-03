@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import VanCard from "../components/VanCard";
 import "./vans.css";
+import { getVans } from "../api";
 
 export default function Vans() {
   const [vans, setVans] = useState([]);
   useEffect(() => {
     (async () => {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/vans`);
-      setVans(await response.json());
+      const data = await getVans();
+      setVans(data);
     })();
   }, []);
 

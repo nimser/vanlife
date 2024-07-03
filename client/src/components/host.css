@@ -19,6 +19,9 @@
   margin-bottom: 15px;
   padding-block: 18px;
   padding-left: 24px;
+  a:last-child {
+    margin-left: auto;
+  }
 }
 
 .host-van-single > img {

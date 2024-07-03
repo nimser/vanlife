@@ -1,18 +1,17 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { getVans } from "../api";
 
 export default function VanDetail() {
-  const params = useParams();
+  const { id } = useParams();
   const [van, setVan] = useState(null);
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/vans/${params.id}`
-      );
-      setVan(await response.json());
+      const data = await getVans(id);
+      setVan(data);
     })();
-  }, [params.id]);
+  }, [id]);
 
   return (
     <div className="van-detail-container">
