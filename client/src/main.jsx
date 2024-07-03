@@ -12,6 +12,9 @@ import Dashboard from "./pages/Host/Dashboard";
 import App from "./App";
 import HostVans from "./pages/Host/HostVans";
 import HostVanDetail from "./pages/Host/HostVanDetail";
+import HostVanInfo from "./pages/Host/HostVanInfo";
+import HostVanPhotos from "./pages/Host/HostVanPhotos";
+import HostVanPricing from "./pages/Host/HostVanPricing";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +52,20 @@ const router = createBrowserRouter([
           {
             path: "vans/:van_id",
             element: <HostVanDetail />,
+            children: [
+              {
+                index: true,
+                element: <HostVanInfo />,
+              },
+              {
+                path: "pricing",
+                element: <HostVanPricing />,
+              },
+              {
+                path: "photos",
+                element: <HostVanPhotos />,
+              },
+            ],
           },
           {
             path: "income",

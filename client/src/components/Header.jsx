@@ -6,7 +6,8 @@ export default function Header() {
       <nav>
         <NavLink
           to="/"
-          className={({ isActive }) => `logo ${isActive ? "active" : null}`}
+          id="logo"
+          className={({ isActive }) => (isActive ? "active" : null)}
         >
           #vanlife
         </NavLink>
