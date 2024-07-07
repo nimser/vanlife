@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Login from "./pages/Login";
+import Login, { action as loginAction } from "./pages/Login";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Vans from "./pages/Vans";
@@ -25,6 +25,7 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+        action: loginAction,
       },
       {
         index: true,

@@ -1,40 +1,34 @@
-import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect, Form, useActionData, useNavigation } from "react-router-dom";
 import { login } from "../api";
 import "./login.css";
 
-export default function Login() {
-  const form = useRef();
-  const [error, setError] = useState([]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const navigate = useNavigate();
+export async function action({ request }) {
+  const formData = await request.formData();
+  try {
+    await login(formData);
+    return redirect("/");
+  } catch (err) {
+    return err;
+  }
+}
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(form.current);
-    setIsSubmitting(true);
-    try {
-      await login(formData);
-      navigate("/", { replace: true });
-    } catch (err) {
-      setError(err);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+export default function Login() {
+  const error = useActionData();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
 
   return (
     <div className="login-container">
       <h1>Sign in to your account</h1>
 
-      <form ref={form} onSubmit={handleFormSubmit} className="login-form">
+      <Form method="post" className="login-form" replace>
         {error && <h2 className="error">{error.message}</h2>}
         <input type="email" name="email" placeholder="Email address" />
         <input type="password" name="password" placeholder="Password" />
         <button type="submit" className="link-button" disabled={isSubmitting}>
           {isSubmitting ? "Logging in..." : "Login"}
         </button>
-      </form>
+      </Form>
     </div>
   );
 }

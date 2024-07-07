@@ -36,4 +36,5 @@ export async function login(formData) {
   if (!res.ok) {
     throw new Error(data?.message || "Unknown error while loggin in");
   }
+  return data;
 }
