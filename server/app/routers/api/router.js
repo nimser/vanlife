@@ -5,8 +5,9 @@ const router = express.Router();
 const vansController = require("../../controllers/vanActions");
 const hostsController = require("../../controllers/hostActions");
 const authController = require("../../controllers/authActions");
+const { verifyHost } = require("../../services/auth");
 
-router.post("/login", authController.login);
+router.post("/login", verifyHost, authController.login);
 router.get("/vans", vansController.browse);
 router.get("/vans/:id", vansController.read);
 router.get("/hosts/:host_id/vans", hostsController.browseVans);

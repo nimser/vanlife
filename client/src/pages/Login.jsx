@@ -3,8 +3,8 @@ import { login } from "../api";
 import "./login.css";
 
 export async function action({ request }) {
-  const formData = await request.formData();
   try {
+    const formData = await request.formData();
     await login(formData);
     return redirect("/");
   } catch (err) {
@@ -14,17 +14,22 @@ export async function action({ request }) {
 
 export default function Login() {
   const error = useActionData();
-  const navigation = useNavigation();
+  const navigation = useNavigation(); // navigation.state "idle" "submitting"
   const isSubmitting = navigation.state === "submitting";
 
   return (
     <div className="login-container">
       <h1>Sign in to your account</h1>
+      {error && <h2 className="error">{error.message}</h2>}
 
-      <Form method="post" className="login-form" replace>
-        {error && <h2 className="error">{error.message}</h2>}
-        <input type="email" name="email" placeholder="Email address" />
-        <input type="password" name="password" placeholder="Password" />
+      <Form method="post" className="login-form">
+        <input type="email" name="email" placeholder="Email" required />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
         <button type="submit" className="link-button" disabled={isSubmitting}>
           {isSubmitting ? "Logging in..." : "Login"}
         </button>

@@ -1,4 +1,6 @@
+const argon2 = require("argon2");
 const AbstractSeeder = require("./AbstractSeeder");
+const { hashingOptions } = require("../../app/services/auth");
 
 class HostSeeder extends AbstractSeeder {
   constructor() {
@@ -8,19 +10,29 @@ class HostSeeder extends AbstractSeeder {
 
   // The run method - Populate the 'host' table with fake data
 
-  run() {
-    // Generate and insert fake data into the 'host' table
-    for (let i = 0; i < 10; i += 1) {
-      // Generate fake host data
-      const fakeHost = {
-        email: this.faker.internet.email(), // Generate a fake email using faker library
-        password: this.faker.internet.password(), // Generate a fake password using faker library
-        refName: `host_${i}`, // Create a reference name for the host
+  async run() {
+    // Generate fake host data
+    const fakeHosts = Array.from({ length: 10 }, (_, i) => {
+      const email = this.faker.internet.email();
+      return {
+        email,
+        refName: `host_${i}`,
       };
+    });
 
-      // Insert the fakeHost data into the 'host' table
-      this.insert(fakeHost); // insert into host(email, password) values (?, ?)
-    }
+    // Hash all passwords concurrently
+    const hashedPasswords = await Promise.all(
+      fakeHosts.map((host) => argon2.hash(host.email, hashingOptions))
+    );
+
+    // Combine the data and insert into the database
+    fakeHosts.forEach((host, index) => {
+      const fakeHost = {
+        ...host,
+        hashed_password: hashedPasswords[index],
+      };
+      this.insert(fakeHost);
+    });
   }
 }
 

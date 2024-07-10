@@ -27,7 +27,10 @@ export async function login(formData) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(formData),
+    body: JSON.stringify({
+      email: formData.get("email"),
+      password: formData.get("password"),
+    }),
   });
   let data;
   if (res.headers.get("Content-Type").includes("application/json")) {

@@ -22,6 +22,15 @@ class HostRepository extends AbstractRepository {
 
     return rows;
   }
+
+  async readWithPassword(email) {
+    const [[firstRow]] = await this.database.query(
+      `SELECT * FROM ${this.table} WHERE email = ?`,
+      [email]
+    );
+
+    return firstRow;
+  }
 }
 
 module.exports = HostRepository;
