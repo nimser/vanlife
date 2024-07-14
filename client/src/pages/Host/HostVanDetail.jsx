@@ -1,18 +1,12 @@
-import { useEffect, useState } from "react";
-import { useParams, Link, NavLink, Outlet } from "react-router-dom";
-import { getHostVans } from "../../api";
+import { Link, NavLink, Outlet, useLoaderData } from "react-router-dom";
+import { getVans } from "../../api";
+
+export function loader({ params }) {
+  return getVans(params.vanId);
+}
 
 export default function HostVanDetail() {
-  const [currentVan, setCurrentVan] = useState(0);
-  const hostId = 2; // FIXME retrieve hostId from auth context
-  const { van_id: vanId } = useParams();
-
-  useEffect(() => {
-    (async () => {
-      const data = await getHostVans(hostId, vanId);
-      setCurrentVan(data);
-    })();
-  }, [vanId]);
+  const currentVan = useLoaderData();
 
   return (
     <section>

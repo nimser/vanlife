@@ -1,17 +1,14 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import VanCard from "../components/VanCard";
 import "./vans.css";
 import { getVans } from "../api";
 
+export function loader() {
+  return getVans();
+}
+
 export default function Vans() {
-  const [vans, setVans] = useState([]);
-  useEffect(() => {
-    (async () => {
-      const data = await getVans();
-      setVans(data);
-    })();
-  }, []);
+  const vans = useLoaderData();
 
   return (
     <div className="van-list-container">

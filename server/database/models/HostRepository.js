@@ -7,17 +7,8 @@ class HostRepository extends AbstractRepository {
 
   async getVans(hostId) {
     const [rows] = await this.database.query(
-      `select * from van where host_id = ?`,
+      `SELECT * FROM van WHERE host_id = ?`,
       [hostId]
-    );
-
-    return rows;
-  }
-
-  async getVan(hostId, vanId) {
-    const [rows] = await this.database.query(
-      `select * from van where host_id = ? and id = ?`,
-      [hostId, vanId]
     );
 
     return rows;

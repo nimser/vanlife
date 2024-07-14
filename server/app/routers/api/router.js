@@ -5,12 +5,11 @@ const router = express.Router();
 const vansController = require("../../controllers/vanActions");
 const hostsController = require("../../controllers/hostActions");
 const authController = require("../../controllers/authActions");
-const { verifyHost } = require("../../services/auth");
+const { getHostByEmail, verifyToken } = require("../../services/auth");
 
-router.post("/login", verifyHost, authController.login);
+router.post("/login", getHostByEmail, authController.login);
 router.get("/vans", vansController.browse);
 router.get("/vans/:id", vansController.read);
-router.get("/hosts/:host_id/vans", hostsController.browseVans);
-router.get("/hosts/:host_id/vans/:van_id", hostsController.readVan);
+router.get("/host/vans", verifyToken, hostsController.browseVans);
 
 module.exports = router;

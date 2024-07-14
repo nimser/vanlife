@@ -4,15 +4,17 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login, { action as loginAction } from "./pages/Login";
 import About from "./pages/About";
 import Home from "./pages/Home";
-import Vans from "./pages/Vans";
-import VanDetail from "./pages/VanDetail";
+import Vans, { loader as vansLoader } from "./pages/Vans";
+import VanDetail, { loader as vansDetailLoader } from "./pages/VanDetail";
 import HostLayout from "./components/HostLayout";
 import Income from "./pages/Host/Income";
 import Reviews from "./pages/Host/Reviews";
-import Dashboard from "./pages/Host/Dashboard";
+import Dashboard, { loader as dashboardLoader } from "./pages/Host/Dashboard";
 import App from "./App";
 import HostVans from "./pages/Host/HostVans";
-import HostVanDetail from "./pages/Host/HostVanDetail";
+import HostVanDetail, {
+  loader as hostVansDetailLoader,
+} from "./pages/Host/HostVanDetail";
 import HostVanInfo from "./pages/Host/HostVanInfo";
 import HostVanPhotos from "./pages/Host/HostVanPhotos";
 import HostVanPricing from "./pages/Host/HostVanPricing";
@@ -38,10 +40,12 @@ const router = createBrowserRouter([
       {
         path: "vans",
         element: <Vans />,
+        loader: vansLoader,
       },
       {
         path: "vans/:id",
         element: <VanDetail />,
+        loader: vansDetailLoader,
       },
       {
         path: "host",
@@ -50,6 +54,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Dashboard />,
+            loader: dashboardLoader,
           },
           {
             path: "vans",
@@ -58,6 +63,7 @@ const router = createBrowserRouter([
           {
             path: "vans/:van_id",
             element: <HostVanDetail />,
+            loader: hostVansDetailLoader,
             children: [
               {
                 index: true,

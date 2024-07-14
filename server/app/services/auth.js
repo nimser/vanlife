@@ -1,4 +1,5 @@
 const argon2 = require("argon2");
+const jwt = require("jsonwebtoken");
 const tables = require("../../database/tables");
 
 const hashingOptions = {
@@ -9,7 +10,7 @@ const hashingOptions = {
 };
 
 // eslint-disable-next-line consistent-return
-const verifyHost = async (req, res, next) => {
+const getHostByEmail = async (req, res, next) => {
   // vérifier que les données envoyées via le POST correspondent à un user existant
   try {
     const host = await tables.host.readWithPassword(req.body.email);
@@ -25,4 +26,28 @@ const verifyHost = async (req, res, next) => {
   }
 };
 
-module.exports = { hashingOptions, verifyHost };
+const verifyToken = async (req, res, next) => {
+  try {
+    const authorization = req.get("Authorization");
+
+    if (authorization == null) {
+      throw new Error("Authorization header is missing");
+    }
+
+    const [type, token] = authorization.split(" ");
+
+    if (type !== "Bearer") {
+      throw new Error("Authorization type is not 'Bearer'");
+    }
+
+    req.auth = jwt.verify(token, process.env.APP_SECRET);
+
+    next();
+  } catch (err) {
+    console.error(err);
+
+    res.sendStatus(401);
+  }
+};
+
+module.exports = { hashingOptions, getHostByEmail, verifyToken };

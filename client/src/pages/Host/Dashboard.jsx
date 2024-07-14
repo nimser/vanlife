@@ -1,18 +1,13 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { BsStarFill } from "react-icons/bs";
 import { getHostVans } from "../../api";
 
-export default function Dashboard() {
-  const [vans, setVans] = useState([]);
-  const hostId = 2; // FIXME Get host id from context
+export function loader() {
+  return getHostVans();
+}
 
-  useEffect(() => {
-    (async () => {
-      const data = await getHostVans(hostId);
-      setVans(data);
-    })();
-  }, []);
+export default function Dashboard() {
+  const vans = useLoaderData();
 
   function renderVanElements(vanEls) {
     const hostVansEls = vanEls.map((van) => (
@@ -58,7 +53,7 @@ export default function Dashboard() {
           <h2>Your listed vans</h2>
           <Link to="vans">View all</Link>
         </div>
-        {vans ? renderVanElements(vans) : <p>Loading...</p>}
+        {renderVanElements(vans)}
       </section>
     </>
   );
