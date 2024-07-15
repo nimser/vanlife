@@ -18,15 +18,18 @@ import HostVanDetail, {
 import HostVanInfo from "./pages/Host/HostVanInfo";
 import HostVanPhotos from "./pages/Host/HostVanPhotos";
 import HostVanPricing from "./pages/Host/HostVanPricing";
+import Error from "./pages/Error";
 
 const router = createBrowserRouter([
   {
     element: <App />,
     path: "/",
+    errorElement: <Error />,
     children: [
       {
         path: "login",
         element: <Login />,
+        errorElement: <Login />,
         action: loginAction,
       },
       {
