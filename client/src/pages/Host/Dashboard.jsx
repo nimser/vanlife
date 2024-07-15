@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import { BsStarFill } from "react-icons/bs";
 import { getHostVans } from "../../api";
 
 export default function Dashboard() {
   const [vans, setVans] = useState([]);
-  const hostId = 2; // FIXME Get host id from context
+  const { auth } = useOutletContext();
 
   useEffect(() => {
     (async () => {
-      const data = await getHostVans(hostId);
+      const data = await getHostVans(auth.token);
       setVans(data);
     })();
   }, []);

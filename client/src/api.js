@@ -1,8 +1,10 @@
-export async function getHostVans(hostId, vanId) {
-  const url = vanId
-    ? `/hosts/${hostId}/vans/${vanId}`
-    : `/hosts/${hostId}/vans`;
-  const res = await fetch(import.meta.env.VITE_API_URL + url);
+export async function getHostVans(token) {
+  const url = `/host/vans`;
+  const res = await fetch(import.meta.env.VITE_API_URL + url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   if (!res.ok) {
     throw new Error("Failed to fetch vans");

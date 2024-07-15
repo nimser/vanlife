@@ -1,7 +1,9 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useOutletContext } from "react-router-dom";
 import "./host.css";
 
 export default function HostLayout() {
+  const { auth, setAuth } = useOutletContext();
+
   return (
     <>
       <nav className="host-nav">
@@ -31,7 +33,7 @@ export default function HostLayout() {
           Reviews
         </NavLink>
       </nav>
-      <Outlet />
+      <Outlet context={{ auth, setAuth }} />
     </>
   );
 }

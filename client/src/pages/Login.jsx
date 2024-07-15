@@ -1,21 +1,34 @@
-import { redirect, Form, useActionData, useNavigation } from "react-router-dom";
+import {
+  Form,
+  useActionData,
+  useNavigation,
+  useNavigate,
+  useRouteError,
+  useOutletContext,
+} from "react-router-dom";
+import { useEffect } from "react";
 import { login } from "../api";
 import "./login.css";
 
 export async function action({ request }) {
-  try {
-    const formData = await request.formData();
-    await login(formData);
-    return redirect("/");
-  } catch (err) {
-    return err;
-  }
+  const formData = await request.formData();
+  return login(formData);
 }
 
 export default function Login() {
-  const error = useActionData();
+  const loginData = useActionData();
+  const { setAuth } = useOutletContext();
+  const error = useRouteError();
   const navigation = useNavigation();
+  const navigate = useNavigate();
   const isSubmitting = navigation.state === "submitting";
+
+  useEffect(() => {
+    if (loginData) {
+      setAuth({ host: loginData.host, token: loginData.token });
+      navigate("/", { replace: true });
+    }
+  }, [loginData]);
 
   return (
     <div className="login-container">
