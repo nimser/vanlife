@@ -1,6 +1,8 @@
 export async function getHostVans() {
   const endpoint = `/host/vans`;
-  const res = await fetch(import.meta.env.VITE_API_URL + endpoint);
+  const res = await fetch(import.meta.env.VITE_API_URL + endpoint, {
+    credentials: "include",
+  });
 
   if (!res.ok) {
     throw new Error("Failed to fetch vans");
@@ -11,7 +13,9 @@ export async function getHostVans() {
 
 export async function getVans(id) {
   const endpoint = id ? `/vans/${id}` : "/vans";
-  const res = await fetch(import.meta.env.VITE_API_URL + endpoint);
+  const res = await fetch(import.meta.env.VITE_API_URL + endpoint, {
+    credentials: "include",
+  });
   if (!res.ok) {
     throw new Error("Failed to fetch vans");
   }
@@ -22,6 +26,7 @@ export async function getVans(id) {
 export async function login(formData) {
   const res = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
     method: "post",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },

@@ -28,17 +28,7 @@ const getHostByEmail = async (req, res, next) => {
 
 const verifyToken = async (req, res, next) => {
   try {
-    const authorization = req.get("Authorization");
-
-    if (authorization == null) {
-      throw new Error("Authorization header is missing");
-    }
-
-    const [type, token] = authorization.split(" ");
-
-    if (type !== "Bearer") {
-      throw new Error("Authorization type is not 'Bearer'");
-    }
+    const token = req.cookies?.auth_token;
 
     req.auth = jwt.verify(token, process.env.APP_SECRET);
 
