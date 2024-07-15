@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login, { action as loginAction } from "./pages/Login";
 import About from "./pages/About";
 import Home from "./pages/Home";
-import Vans from "./pages/Vans";
+import Vans, { loader as vansLoader } from "./pages/Vans";
 import VanDetail from "./pages/VanDetail";
 import HostLayout from "./components/HostLayout";
 import Income from "./pages/Host/Income";
@@ -16,11 +16,13 @@ import HostVanDetail from "./pages/Host/HostVanDetail";
 import HostVanInfo from "./pages/Host/HostVanInfo";
 import HostVanPhotos from "./pages/Host/HostVanPhotos";
 import HostVanPricing from "./pages/Host/HostVanPricing";
+import Error from "./pages/Error";
 
 const router = createBrowserRouter([
   {
     element: <App />,
     path: "/",
+    errorElement: <Error />,
     children: [
       {
         path: "login",
@@ -38,6 +40,7 @@ const router = createBrowserRouter([
       {
         path: "vans",
         element: <Vans />,
+        loader: vansLoader,
       },
       {
         path: "vans/:id",

@@ -14,10 +14,14 @@ export async function getHostVans(hostId, vanId) {
 export async function getVans(id) {
   const url = id ? `/vans/${id}` : "/vans";
   const res = await fetch(import.meta.env.VITE_API_URL + url);
-  if (!res.ok) {
-    throw new Error("Failed to fetch vans");
+  let data;
+  if (res.headers.get("Content-Type").includes("application/json")) {
+    data = await res.json();
   }
-  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data?.message || "Failed to fetch vans");
+  }
   return data;
 }
 

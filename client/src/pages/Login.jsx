@@ -14,7 +14,7 @@ export async function action({ request }) {
 
 export default function Login() {
   const error = useActionData();
-  const navigation = useNavigation(); // navigation.state "idle" "submitting"
+  const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
   return (
