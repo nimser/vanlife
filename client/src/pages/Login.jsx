@@ -1,20 +1,16 @@
-import { redirect, Form, useActionData, useNavigation } from "react-router-dom";
+import { redirect, Form, useNavigation, useRouteError } from "react-router-dom";
 import { login } from "../api";
 import "./login.css";
 
 export async function action({ request }) {
-  try {
-    const formData = await request.formData();
-    await login(formData);
-    return redirect("/");
-  } catch (err) {
-    return err;
-  }
+  const formData = await request.formData();
+  await login(formData);
+  return redirect("/");
 }
 
 export default function Login() {
-  const error = useActionData();
-  const navigation = useNavigation(); // navigation.state "idle" "submitting"
+  const error = useRouteError();
+  const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
   return (
