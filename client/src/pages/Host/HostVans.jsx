@@ -1,17 +1,12 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { getHostVans } from "../../api";
 
-export default function HostVans() {
-  const [vans, setVans] = useState([]);
-  const hostId = "2"; // FIXME retrieve this from the context after being authed
+export function loader() {
+  return getHostVans();
+}
 
-  useEffect(() => {
-    (async () => {
-      const data = await getHostVans(hostId);
-      setVans(data);
-    })();
-  }, []);
+export default function HostVans() {
+  const vans = useLoaderData();
 
   const hostVansEls = vans.map((van) => (
     <Link

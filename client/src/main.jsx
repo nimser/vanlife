@@ -10,23 +10,27 @@ import HostLayout from "./components/HostLayout";
 import Income from "./pages/Host/Income";
 import Reviews from "./pages/Host/Reviews";
 import Dashboard, { loader as dashboardLoader } from "./pages/Host/Dashboard";
-import App from "./App";
-import HostVans from "./pages/Host/HostVans";
+import App, { loader as appLoader } from "./App";
+import HostVans, { loader as hostVansLoader } from "./pages/Host/HostVans";
 import HostVanDetail, {
   loader as hostVansDetailLoader,
 } from "./pages/Host/HostVanDetail";
 import HostVanInfo from "./pages/Host/HostVanInfo";
 import HostVanPhotos from "./pages/Host/HostVanPhotos";
 import HostVanPricing from "./pages/Host/HostVanPricing";
+import Error from "./pages/Error";
 
 const router = createBrowserRouter([
   {
     element: <App />,
     path: "/",
+    loader: appLoader,
+    errorElement: <Error />,
     children: [
       {
         path: "login",
         element: <Login />,
+        errorElement: <Login />,
         action: loginAction,
       },
       {
@@ -59,6 +63,7 @@ const router = createBrowserRouter([
           {
             path: "vans",
             element: <HostVans />,
+            loader: hostVansLoader,
           },
           {
             path: "vans/:van_id",

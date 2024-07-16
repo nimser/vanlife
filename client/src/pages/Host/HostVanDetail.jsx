@@ -2,7 +2,7 @@ import { Link, NavLink, Outlet, useLoaderData } from "react-router-dom";
 import { getVans } from "../../api";
 
 export function loader({ params }) {
-  return getVans(params.vanId);
+  return getVans(params.van_id);
 }
 
 export default function HostVanDetail() {
