@@ -1,17 +1,12 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { getHostVans } from "../../api";
 
-export default function HostVans() {
-  const [vans, setVans] = useState([]);
-  const hostId = "2"; // FIXME retrieve this from the context after being authed
+export function loader() {
+  return getHostVans();
+}
 
-  useEffect(() => {
-    (async () => {
-      const data = await getHostVans(hostId);
-      setVans(data);
-    })();
-  }, []);
+export default function HostVans() {
+  const vans = useLoaderData();
 
   const hostVansEls = vans.map((van) => (
     <Link
@@ -36,7 +31,10 @@ export default function HostVans() {
         {vans.length > 0 ? (
           <section>{hostVansEls}</section>
         ) : (
-          <h2>Loading...</h2>
+          <>
+            <h2>It's quite empty here...</h2>
+            <h3>You should probably add a van.</h3>
+          </>
         )}
       </div>
     </section>

@@ -11,7 +11,7 @@ import Income from "./pages/Host/Income";
 import Reviews from "./pages/Host/Reviews";
 import Dashboard, { loader as dashboardLoader } from "./pages/Host/Dashboard";
 import App from "./App";
-import HostVans from "./pages/Host/HostVans";
+import HostVans, { loader as hostVansLoader } from "./pages/Host/HostVans";
 import HostVanDetail, {
   loader as hostVansDetailLoader,
 } from "./pages/Host/HostVanDetail";
@@ -62,6 +62,7 @@ const router = createBrowserRouter([
           {
             path: "vans",
             element: <HostVans />,
+            loader: hostVansLoader,
           },
           {
             path: "vans/:van_id",

@@ -1,5 +1,6 @@
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
+const dayjs = require("dayjs");
 
 const login = async (req, res) => {
   const host = req.user;
@@ -10,10 +11,16 @@ const login = async (req, res) => {
 
   delete host.hashed_password;
   const token = jwt.sign({ sub: host.id }, process.env.APP_SECRET, {
-    expiresIn: "1h",
+    expiresIn: "1y",
   });
 
-  return res.json({ host, token });
+  res.cookie("auth_token", token, {
+    secure: process.env.NODE_ENV !== "development",
+    httpOnly: true,
+    expires: dayjs().add(30, "days").toDate(),
+  });
+
+  return res.json({ host });
 };
 
 module.exports = { login };
