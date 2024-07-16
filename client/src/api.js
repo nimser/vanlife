@@ -44,3 +44,21 @@ export async function login(formData) {
   }
   return data;
 }
+
+export async function checkAuth() {
+  try {
+    // Send a request to your backend to verify the token
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/auth/verify`,
+      {
+        method: "get",
+        credentials: "include",
+      }
+    );
+
+    return response.ok;
+  } catch (error) {
+    console.error("Auth check failed:", error);
+    return false;
+  }
+}
