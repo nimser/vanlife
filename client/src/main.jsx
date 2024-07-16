@@ -10,7 +10,7 @@ import HostLayout from "./components/HostLayout";
 import Income from "./pages/Host/Income";
 import Reviews from "./pages/Host/Reviews";
 import Dashboard, { loader as dashboardLoader } from "./pages/Host/Dashboard";
-import App from "./App";
+import App, { loader as appLoader } from "./App";
 import HostVans, { loader as hostVansLoader } from "./pages/Host/HostVans";
 import HostVanDetail, {
   loader as hostVansDetailLoader,
@@ -25,6 +25,7 @@ const router = createBrowserRouter([
     element: <App />,
     path: "/",
     errorElement: <Error />,
+    loader: appLoader,
     children: [
       {
         path: "login",

@@ -28,6 +28,13 @@ nav {
       height: 20px;
     }
   }
+  button {
+    background-color: transparent;
+    border: none;
+    img {
+      cursor: pointer;
+    }
+  }
 }
 #logo {
   &:hover,

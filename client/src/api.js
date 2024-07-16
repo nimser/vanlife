@@ -44,3 +44,24 @@ export async function login(formData) {
   }
   return data;
 }
+
+export async function checkAuth() {
+  try {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/verify-auth`, {
+      credentials: "include",
+    });
+    return res.ok;
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+}
+
+export async function logout() {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
+    credentials: "include",
+  });
+  if (!res.ok) {
+    throw new Error("Couldn't log out");
+  }
+}
