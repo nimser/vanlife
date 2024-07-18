@@ -1,6 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  redirect,
+} from "react-router-dom";
 import Login, { action as loginAction } from "./pages/Login";
 import About from "./pages/About";
 import Home from "./pages/Home";
@@ -19,6 +23,26 @@ import HostVanInfo from "./pages/Host/HostVanInfo";
 import HostVanPhotos from "./pages/Host/HostVanPhotos";
 import HostVanPricing from "./pages/Host/HostVanPricing";
 import Error from "./pages/Error";
+import { checkAuth } from "./api";
+
+function protectedRoute(routeConfig) {
+  return {
+    ...routeConfig,
+    loader: async (args) => {
+      const isAllowed = await checkAuth();
+
+      if (!isAllowed) {
+        return redirect("/login");
+      }
+
+      if (routeConfig.loader) {
+        return routeConfig.loader(args);
+      }
+
+      return null; // Explicitly return null if no loader data
+    },
+  };
+}
 
 const router = createBrowserRouter([
   {
@@ -51,7 +75,7 @@ const router = createBrowserRouter([
         element: <VanDetail />,
         loader: vansDetailLoader,
       },
-      {
+      protectedRoute({
         path: "host",
         element: <HostLayout />,
         children: [
@@ -93,7 +117,7 @@ const router = createBrowserRouter([
             element: <Reviews />,
           },
         ],
-      },
+      }),
     ],
   },
 ]);

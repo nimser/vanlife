@@ -24,12 +24,14 @@ export default function Header({ isLoggedIn }) {
         >
           #vanlife
         </NavLink>
-        <NavLink
-          to="/host"
-          className={({ isActive }) => (isActive ? "active" : null)}
-        >
-          Host
-        </NavLink>
+        {isLoggedIn && (
+          <NavLink
+            to="/host"
+            className={({ isActive }) => (isActive ? "active" : null)}
+          >
+            Host
+          </NavLink>
+        )}
         <NavLink
           to="/vans"
           className={({ isActive }) => (isActive ? "active" : null)}
