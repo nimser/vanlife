@@ -47,18 +47,21 @@ export async function login(formData) {
 
 export async function checkAuth() {
   try {
-    // Send a request to your backend to verify the token
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/auth/verify`,
-      {
-        method: "get",
-        credentials: "include",
-      }
-    );
-
-    return response.ok;
-  } catch (error) {
-    console.error("Auth check failed:", error);
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/verify-auth`, {
+      credentials: "include",
+    });
+    return res.ok;
+  } catch (err) {
+    console.error(err);
     return false;
+  }
+}
+
+export async function logout() {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
+    credentials: "include",
+  });
+  if (!res.ok) {
+    throw new Error("Couldn't log out");
   }
 }

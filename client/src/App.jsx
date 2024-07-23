@@ -9,10 +9,10 @@ export function loader() {
 }
 
 function App() {
-  const loggedIn = useLoaderData();
+  const isLoggedIn = useLoaderData();
   return (
     <>
-      <Header loggedIn={loggedIn} />
+      <Header isLoggedIn={isLoggedIn} />
       <main>
         <Outlet />
       </main>

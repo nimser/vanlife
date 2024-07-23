@@ -31,7 +31,10 @@ export default function HostVans() {
         {vans.length > 0 ? (
           <section>{hostVansEls}</section>
         ) : (
-          <h2>Loading...</h2>
+          <>
+            <h2>It's quite empty here...</h2>
+            <h3>You should probably add a van.</h3>
+          </>
         )}
       </div>
     </section>

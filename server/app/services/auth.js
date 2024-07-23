@@ -29,7 +29,6 @@ const getHostByEmail = async (req, res, next) => {
 const verifyToken = async (req, res, next) => {
   try {
     const token = req.cookies?.auth_token;
-
     req.auth = jwt.verify(token, process.env.APP_SECRET);
 
     next();

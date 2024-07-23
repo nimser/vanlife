@@ -1,7 +1,19 @@
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import avatarIcon from "../assets/images/avatar-icon.png";
+import logoutIcon from "../assets/images/sign-out.svg";
+import { logout } from "../api";
 
-export default function Header({ loggedIn }) {
+export default function Header({ isLoggedIn }) {
+  const navigate = useNavigate();
+  const handleLogOut = async () => {
+    try {
+      await logout();
+      navigate(0);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <header>
       <nav>
@@ -12,12 +24,14 @@ export default function Header({ loggedIn }) {
         >
           #vanlife
         </NavLink>
-        <NavLink
-          to="/host"
-          className={({ isActive }) => (isActive ? "active" : null)}
-        >
-          Host
-        </NavLink>
+        {isLoggedIn && (
+          <NavLink
+            to="/host"
+            className={({ isActive }) => (isActive ? "active" : null)}
+          >
+            Host
+          </NavLink>
+        )}
         <NavLink
           to="/vans"
           className={({ isActive }) => (isActive ? "active" : null)}
@@ -30,10 +44,10 @@ export default function Header({ loggedIn }) {
         >
           About
         </NavLink>
-        {loggedIn ? (
-          <Link to="/logout" className="login-link">
-            Logout
-          </Link>
+        {isLoggedIn ? (
+          <button type="button" onClick={handleLogOut} className="login-link">
+            <img src={logoutIcon} alt="logout" width="25" />
+          </button>
         ) : (
           <Link to="/login" className="login-link">
             <img src={avatarIcon} alt="login" />
