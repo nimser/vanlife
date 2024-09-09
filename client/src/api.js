@@ -1,6 +1,7 @@
+const URL = import.meta.env.VITE_API_URL ?? "";
 export async function getHostVans() {
   const endpoint = `/host/vans`;
-  const res = await fetch(import.meta.env.VITE_API_URL + endpoint, {
+  const res = await fetch(URL + endpoint, {
     credentials: "include",
   });
 
@@ -13,7 +14,7 @@ export async function getHostVans() {
 
 export async function getVans(id) {
   const endpoint = id ? `/vans/${id}` : "/vans";
-  const res = await fetch(import.meta.env.VITE_API_URL + endpoint, {
+  const res = await fetch(URL + endpoint, {
     credentials: "include",
   });
   if (!res.ok) {
@@ -24,7 +25,7 @@ export async function getVans(id) {
 }
 
 export async function login(formData) {
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
+  const res = await fetch(`${URL}/login`, {
     method: "post",
     credentials: "include",
     headers: {
@@ -47,7 +48,7 @@ export async function login(formData) {
 
 export async function checkAuth() {
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/verify-auth`, {
+    const res = await fetch(`${URL}/verify-auth`, {
       credentials: "include",
     });
     return res.ok;
@@ -58,7 +59,7 @@ export async function checkAuth() {
 }
 
 export async function logout() {
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
+  const res = await fetch(`${URL}/logout`, {
     credentials: "include",
   });
   if (!res.ok) {
